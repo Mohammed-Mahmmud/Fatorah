@@ -10,9 +10,8 @@ class SectionsController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 */
-	public function index() {
-		//
-		// return view('sections.sections');
+	public function index() 
+	{
 		return view('sections.sections', ['sections' => Sections::all()]);
 	}
 
@@ -26,15 +25,22 @@ class SectionsController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 */
-	public function store(Sections $sections, Request $request) {
+	public function store( Request $request) {
 		//
 		$input = $request->all();
-		$b_exist = Sections::whereSection_name($input['section_name'])->exists();
+		$b_exist = Sections::where('section_name','=',$input['section_name'])->exists();
 
 		if ($b_exist) {
 			session()->flash('Error', 'خطا القسم مسجل مسبقا');
 			return redirect('/sections');
-		} else {
+		}
+		// else if($input['section_name']==""||$input['section_name']==null){
+		else if($request->section_name==""||$request->section_name== null){
+
+			session()->flash('empty', 'خظأ ﻻ يمكن للقسم أن يكون فارغا');
+			return redirect('/sections');
+		} 
+		else {
 
 			Sections::create([
 				'section_name' => $request->section_name,
@@ -43,6 +49,7 @@ class SectionsController extends Controller {
 			]);
 			session()->flash('Add', 'تم اضافة القسم بنجاح');
 			return redirect('/sections');
+			// return redirect('/sections')->with('message','تم اضافة القسم بنجاح');
 		}
 	}
 
@@ -59,13 +66,14 @@ class SectionsController extends Controller {
 	 */
 	public function edit(Sections $sections) {
 		//
+		return view('sections.sections',compact('sections'));
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 */
 	public function update(Request $request, Sections $sections) {
-		//
+		//				
 	}
 
 	/**
