@@ -12,6 +12,7 @@ class SectionsController extends Controller {
 	 */
 	public function index() 
 	{
+
 		return view('sections.sections', ['sections' => Sections::all()]);
 	}
 
@@ -26,32 +27,23 @@ class SectionsController extends Controller {
 	 * Store a newly created resource in storage.
 	 */
 	public function store( Request $request) {
-		//
-		$input = $request->all();
-		$b_exist = Sections::where('section_name','=',$input['section_name'])->exists();
+	$id=$request->id;
+		$validation=$request->validate([
+			'section_name' => 'required|max:255|unique:sections,section_name,'.$id,
+			'description' => 'required',
+		],[
+			'section_name.required'=>'خظأ ﻻ يمكن للقسم أن يكون فارغا',
+			'section_name.unique'=>'خظأ هذا القسم تم أدراجه مسبقا',
+			'description.required'=>'خظأ ﻻ يمكن للوصف أن يكون فارغا',
 
-		if ($b_exist) {
-			session()->flash('Error', 'خطا القسم مسجل مسبقا');
-			return redirect('/sections');
-		}
-		// else if($input['section_name']==""||$input['section_name']==null){
-		else if($request->section_name==""||$request->section_name== null){
-
-			session()->flash('empty', 'خظأ ﻻ يمكن للقسم أن يكون فارغا');
-			return redirect('/sections');
-		} 
-		else {
-
-			Sections::create([
+		]);
+				Sections::create([
 				'section_name' => $request->section_name,
 				'description' => $request->description,
 				'created_by' => Auth::user()->name,
 			]);
-			session()->flash('Add', 'تم اضافة القسم بنجاح');
-			return redirect('/sections');
-			// return redirect('/sections')->with('message','تم اضافة القسم بنجاح');
+			return redirect('/sections')->with(['done'=>'تم اضافة القسم بنجاح']);
 		}
-	}
 
 	/**
 	 * Display the specified resource.
@@ -64,22 +56,44 @@ class SectionsController extends Controller {
 	/**
 	 * Show the form for editing the specified resource.
 	 */
-	public function edit(Sections $sections) {
+	public function edit(Request $request ,Sections $sections) {
 		//
 		return view('sections.sections',compact('sections'));
+		
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update(Request $request, Sections $sections) {
-		//				
-	}
+	public function update(Request $request , Sections $sections) {
+		//	
+		$id=$request->id;
+		$request->validate([
+			'section_name' => 'required|max:255|unique:sections,section_name,'.$id,
+			'description' => 'required',
+		],[
+			'section_name.required'=>'خظأ ﻻ يمكن للقسم أن يكون فارغا',
+			'section_name.unique'=>'خظأ هذا القسم تم أدراجه مسبقا',
+			'description.required'=>'خظأ ﻻ يمكن للوصف أن يكون فارغا',	
+		]);
+		
+		 Sections::findorfail($id)->update([
+			'section_name'=>$request->section_name,
+			'description' =>$request->description
+		]);  
+			return redirect('/sections',)->with(['edit'=>'تم تعديل القسم بنجاج']);				   				   
+		}
+
+
+
 
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy(Sections $sections) {
+	public function destroy(Request $request ) {
 		//
+		$id =$request->id;
+		sections::findorfail($id)->delete();
+		return redirect('/sections')->with(['delete'=>'تم حذف القسم بنجاح']);
 	}
 }
