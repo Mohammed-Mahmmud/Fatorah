@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Sections;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,7 @@ class products extends Model
 		'created_by',
 	];
 
-	public function Sections(){
+	public function section(){
         return $this->belongsTo(Sections::class);
     }
 }

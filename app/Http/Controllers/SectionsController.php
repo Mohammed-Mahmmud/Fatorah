@@ -33,7 +33,7 @@ class SectionsController extends Controller {
 			'description' => 'required',
 		],[
 			'section_name.required'=>'خظأ ﻻ يمكن للقسم أن يكون فارغا',
-			'section_name.unique'=>'خظأ هذا القسم تم أدراجه مسبقا',
+			'section_name.unique'=>"خظأ هذا القسم  $request->section_name تم أدراجه مسبقا",
 			'description.required'=>'خظأ ﻻ يمكن للوصف أن يكون فارغا',
 
 		]);
@@ -42,7 +42,7 @@ class SectionsController extends Controller {
 				'description' => $request->description,
 				'created_by' => Auth::user()->name,
 			]);
-			return redirect('/sections')->with(['done'=>'تم اضافة القسم بنجاح']);
+			return redirect('/sections')->with(['done'=>"تم اضافة القسم  $request->section_name بنجاح"]);
 		}
 
 	/**
@@ -81,7 +81,7 @@ class SectionsController extends Controller {
 			'section_name'=>$request->section_name,
 			'description' =>$request->description
 		]);  
-			return redirect('/sections',)->with(['edit'=>'تم تعديل القسم بنجاج']);				   				   
+			return redirect('/sections',)->with(['edit'=>"تم تعديل القسم  $request->section_name  بنجاج"]);				   				   
 		}
 
 
@@ -94,6 +94,6 @@ class SectionsController extends Controller {
 		//
 		$id =$request->id;
 		sections::findorfail($id)->delete();
-		return redirect('/sections')->with(['delete'=>'تم حذف القسم بنجاح']);
+		return redirect('/sections')->with(['delete'=>"تم حذف القسم   $request->section_name بنجاح"]);
 	}
 }
