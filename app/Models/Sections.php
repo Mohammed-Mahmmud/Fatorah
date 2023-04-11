@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use App\Models\products;
+use App\Models\Invoices;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,4 +17,8 @@ class Sections extends Model {
 	public function products(){
 		return $this->hasMany(products::class);
 	}
+	public function Invoices(){
+		return $this->hasMany(Invoices::class);
+	}
+
 }
