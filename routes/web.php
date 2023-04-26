@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\InvoicesDetailsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,5 +29,6 @@ Route::resource('invoices', InvoicesController::class);
 Route::resource('sections', SectionsController::class);
 Route::resource('products', ProductsController::class);
 Route::get('/home', [HomeController::class, 'index']);
+Route::get('/InvoicesDetails/{id}',[InvoicesDetailsController::class,'index']);
 Route::get('/section/{id}',[InvoicesController::class,'getProducts']);
 Route::get('/dashboard/{page}', [AdminController::class, 'index']);

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Sections;
 class Invoice_attachments extends Model
 {
     use HasFactory;
@@ -15,5 +15,8 @@ class Invoice_attachments extends Model
         'created_by',
         'invoice_id'
     ];
+    public function section(){
+        return $this->belongsTo(Sections::class);
+    }
 }
 

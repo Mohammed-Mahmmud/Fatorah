@@ -38,6 +38,17 @@ class ProductsSeeder extends Seeder
             'description' => 'PayPal',
             'created_by' => 'mohamed',
 		]);
-    
+        products::updateorcreate(['product_name' => 'Gpay'], [
+            'product_name' => 'Gpay',
+            'section_id' => '2',
+            'description' => 'Googel Pay',
+            'created_by' => 'mohamed',
+		]);
+        products::updateorcreate(['product_name' => 'Apple'], [
+            'product_name' => 'Apple',
+            'section_id' => '3',
+            'description' => 'Apple Card',
+            'created_by' => 'mohamed',
+		]);
     }
 }

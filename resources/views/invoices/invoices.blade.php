@@ -74,13 +74,13 @@
                 <div class="card-header pb-0">
 
                     {{-- @can('اضافة فاتورة') --}}
-                        <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
-                                class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a>
+                    <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white; font-size: 15px;"><i
+                        class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a>
                     {{-- @endcan --}}
 
                     {{-- @can('تصدير EXCEL') --}}
-                        <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
-                            style="color:white"><i class="fas fa-file-download"></i>&nbsp;تصدير اكسيل</a>
+                        <a class="modal-effect btn btn-sm btn-success" href="{{ url('export_invoices') }}"
+                            style="color:white; font-size: 15px;"><i class="fas fa-file-download"></i>&nbsp;تصدير اكسيل</a>
                     {{-- @endcan --}}
 
                 </div>
@@ -108,12 +108,13 @@
                                 @foreach ($invoices as $invoice)
                                  <tr>
                                         <td>{{ $invoice->id }}</td>
-                                        <td>{{ $invoice->invoice_number }} </td>
+                                        <td><a href="{{ url('InvoicesDetails') }}/{{ $invoice->id }}"  title="عرض تفاصيل الفاتورة">{{ $invoice->invoice_number }} </a></td>
                                         <td>{{ $invoice->invoice_date }}</td>
                                         <td>{{ $invoice->Due_date }}</td>
                                         <td>{{ $invoice->product }}</td>
-                                        <td><a href="{{ url('InvoicesDetails') }}/{{ $invoice->id }}">
-                                            {{ $invoice->section->section_name }}</a></td>
+                                        {{-- <td><a href="{{ url('InvoicesDetails') }}/{{ $invoice->id }}">
+                                            {{ $invoice->section->section_name }}</a></td> --}}
+                                        <td>{{ $invoice->section->section_name }}</td>
                                         <td>{{ $invoice->discount }}</td>
                                         <td>{{ $invoice->rate_vat }}</td>
                                         <td>{{ $invoice->value_vat }}</td>

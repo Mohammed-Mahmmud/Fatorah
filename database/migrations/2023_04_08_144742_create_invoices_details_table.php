@@ -21,6 +21,7 @@ return new class extends Migration
 			$table->string('section');
 			$table->string('status', 50);
 			$table->integer('value_status');
+            $table->date('Payment_Date')->nullable();
 			$table->text('note')->nullable();
 			$table->string('user');
 			$table->timestamps();

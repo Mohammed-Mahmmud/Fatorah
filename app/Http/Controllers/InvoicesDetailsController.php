@@ -3,16 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoices_details;
-use Illuminate\Http\Request;
+use App\Models\Invoices;
+use App\Models\Invoices_attachment;
 
+use Illuminate\Http\Request;
+use DB;
+use App\Http\Controllers\Storage;
 class InvoicesDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        //14
+        $invoice_details = Invoices_details::where('invoice_id','=',$id)
+                            ->first();
+        $invoice = Invoices::where('id','=',$id)
+                            ->first();
+        $invoice_attachments = DB::table('invoice_attachments')
+                            ->where('invoice_id','=',$id)
+                            ->first();
+
+        $file_name = DB::table('invoice_attachments')
+        ->where('invoice_id','=',$id)
+        ->first('file_name');
+        
+        if ($file_name!=null) {
+            $file_url = "/Attachments/$invoice_attachments->invoice_number/$invoice_attachments->file_name";
+         }else {
+            $file_url = 'ﻻ يوجد ملحقات';
+    }
+   
+    	return view('invoices.invoice-details',compact('invoice_details','invoice_attachments','file_url','invoice'));
+    
     }
 
     /**
