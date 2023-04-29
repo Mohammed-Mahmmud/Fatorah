@@ -16,11 +16,9 @@ class InvoicesDetailsController extends Controller
      */
     public function index($id)
     {
-        //14
-        $invoice_details = Invoices_details::where('invoice_id','=',$id)
-                            ->first();
-        $invoice = Invoices::where('id','=',$id)
-                            ->first();
+        //
+        $invoice = Invoices::where('id','=',$id)->first();
+        $invoice_details = Invoices_details::where('invoice_id','=',$id)->get();
         $invoice_attachments = DB::table('invoice_attachments')
                             ->where('invoice_id','=',$id)
                             ->first();
