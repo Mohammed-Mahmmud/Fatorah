@@ -93,7 +93,7 @@ return [
             ],
             'processors' => [PsrLogMessageProcessor::class],
         ],
-
+        
         'stderr' => [
             'driver' => 'monolog',
             'level' => env('LOG_LEVEL', 'debug'),

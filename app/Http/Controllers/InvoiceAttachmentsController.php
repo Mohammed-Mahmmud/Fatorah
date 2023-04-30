@@ -10,9 +10,10 @@ class InvoiceAttachmentsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($invoice_number , $file_name)
     {
-        //
+         $file = "/Attachments/$invoice_number/$file_name";
+
     }
 
     /**

@@ -23,17 +23,17 @@ class InvoicesDetailsController extends Controller
                             ->where('invoice_id','=',$id)
                             ->first();
 
-        $file_name = DB::table('invoice_attachments')
-        ->where('invoice_id','=',$id)
-        ->first('file_name');
+    //     $file_name = DB::table('invoice_attachments')
+    //     ->where('invoice_id','=',$id)
+    //     ->first('file_name');
         
-        if ($file_name!=null) {
-            $file_url = "/Attachments/$invoice_attachments->invoice_number/$invoice_attachments->file_name";
-         }else {
-            $file_url = 'ﻻ يوجد ملحقات';
-    }
+    //     if ($file_name!=null) {
+    //         $file_url = "/Attachments/$invoice_attachments->invoice_number/$invoice_attachments->file_name";
+    //      }else {
+    //         $file_url = 'ﻻ يوجد ملحقات';
+    // }
    
-    	return view('invoices.invoice-details',compact('invoice_details','invoice_attachments','file_url','invoice'));
+    	return view('invoices.invoice-details',compact('invoice_details','invoice_attachments','invoice'));
     
     }
 

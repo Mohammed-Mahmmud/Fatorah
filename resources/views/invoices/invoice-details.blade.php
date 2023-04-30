@@ -105,28 +105,24 @@
     <th style="font-size:18px;" bgcolor="lightblue"><strong>الخصم</strong></th>
     <td style="font-size:18px;" bgcolor="pink">{{ $invoice->discount}}</td>
     </tr>
-
     <tr>
-        <th style="font-size:18px;" bgcolor="lightblue"><strong>قيمة الضريبة</strong>
-        </th>
+        <th style="font-size:18px;" bgcolor="lightblue"><strong>مبلغ التحصيل</strong></th>
+        <td style="font-size:18px;" bgcolor="pink">{{ $invoice->amount_collection}}</td>
+        <th style="font-size:18px;" bgcolor="lightblue"><strong>مبلغ العمولة</strong></th>
+        <td style="font-size:18px;" bgcolor="pink">{{ $invoice->amount_Commission }}</td>
+        <th style="font-size:18px;" bgcolor="lightblue"><strong>ملاحظات</strong></th>
+        <td style="font-size:18px;" bgcolor="pink">{{ $invoice->note }}</td>
+        </tr>
+    <tr>
+        <th style="font-size:18px;" bgcolor="lightblue"><strong>قيمة الضريبة</strong></th>
         <td style="font-size:18px;" bgcolor="pink">{{ $invoice->value_vat}}</td>
-    <th style="font-size:18px;" bgcolor="lightblue"><strong>نسبة الضريبة</strong></th>
-    <td style="font-size:18px;" bgcolor="pink">{{ $invoice->rate_vat }}</td>
-    <th style="font-size:18px;" bgcolor="lightblue"><strong>ملاحظات</strong></th>
-     <td style="font-size:18px;" bgcolor="pink">{{ $invoice->note }}</td>
+        <th style="font-size:18px;" bgcolor="lightblue"><strong>نسبة الضريبة</strong></th>
+        <td style="font-size:18px;" bgcolor="pink">{{ $invoice->rate_vat }}</td>
+    
+     <th style="font-size:18px;" bgcolor="lightblue"><strong>الاجمالي</strong></th>
+        <td style="font-size:18px;" bgcolor="pink">{{ $invoice->total }}</td>
+    </tr>
 
-    </tr>
-    <tr>
-    <th style="font-size:18px;" bgcolor="lightblue"><strong>مبلغ التحصيل</strong></th>
-    <td style="font-size:18px;" bgcolor="pink">{{ $invoice->amount_collection}}</td>
-    <th style="font-size:18px;" bgcolor="lightblue"><strong>مبلغ العمولة</strong></th>
-    <td style="font-size:18px;" bgcolor="pink">{{ $invoice->amount_Commission }}</td>
-    <th style="font-size:18px;" bgcolor="lightblue"><strong>الاجمالي</strong></th>
-    <td style="font-size:18px;" bgcolor="pink">{{ $invoice->total }}</td>
-    </tr>
-    <tr>
-     
-    </tr>
 <tr>
     <th style="font-size:18px;" bgcolor="lightblue"><strong>المستخدم</strong></th>
     <td style="font-size:18px;" bgcolor="pink">{{ username()  }}</td>
@@ -210,7 +206,7 @@
                                                                 @else
                                                                     <th class="border-bottom-0">رقم الفاتورة</th>
                                                                     <th class="border-bottom-0">أسم الملف</th>
-                                                                    <th class="border-bottom-0"> الملف</th>
+                                                                    {{-- <th class="border-bottom-0"> الملف</th> --}}
                                                                     <th class="border-bottom-0">قام بالاضافة</th>
                                                                     <th class="border-bottom-0">تاريخ الاضافة</th>
                                                                     <th class="border-bottom-0">العمليات</th>
@@ -222,10 +218,14 @@
 
                                                                 <td>{{ $invoice_attachments->invoice_number }} </td>
                                                                 <td>{{ $invoice_attachments->file_name }}</td>
-                                                                <td><img src="{{ $file_url }}"  width="100" height="100"></td>
+                                                                {{-- <td><img src="{{ $file_url }}"  width="100" height="100"></td> --}}
                                                                 <td>{{ $invoice_attachments->created_by }}</td>
                                                                 <td>{{ $invoice_attachments->created_at }}</td>
-                                                                <td>{{ $invoice_attachments->updated_at }}</td> 
+                                                                <td>
+                                                                    <a class="btn btn-outline-success btn-sm" href="/view_file/{{ $invoice_attachments->invoice_number }}/{{ $invoice_attachments->file_name }}">عرض</a>
+                                                                    <a class="btn btn-outline-info btn-sm">تحميل</a>
+                                                                    <a class="btn btn-outline-danger btn-sm">حذف</a>
+                                                                </td> 
                                                                 @endif
                                                                 </td>
                                                             </tr>
